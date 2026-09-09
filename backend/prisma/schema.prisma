@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Um projeto de verdade do portfólio (ex: NuGalho Hub, Controle Rota).
+// "problem"/"solution"/"impact" viram o mini case-study de cada card no
+// site — o que fazia o dono da empresa perder tempo/dinheiro antes, o que
+// foi construído, e o resultado prático.
+model Project {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  tagline     String
+  problem     String   @db.Text
+  solution    String   @db.Text
+  impact      String   @db.Text
+  techStack   String[]
+  liveUrl     String?
+  repoUrl     String?
+  imageUrl    String?
+  // Números de impacto pra mostrar em destaque no card (ex: [{"label":
+  // "Lojas ativas", "value": "3"}]) — evita ter que abrir "Ver detalhes"
+  // pra ver o que realmente importa pra quem tá avaliando.
+  metrics     Json?
+  // Frase curta com o que vem a seguir no projeto (roadmap), mostrada
+  // sempre visível no card.
+  nextStep    String?  @db.Text
+  // "live" (padrão) ou "in_development" — mostra um selo no card
+  // avisando que o projeto ainda está sendo construído.
+  status      String   @default("live")
+  // Controla se aparece em destaque no topo da lista.
+  featured    Boolean  @default(false)
+  // Ordem manual de exibição (menor primeiro).
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Mensagem enviada pelo formulário de contato (ex: recrutador).
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  company   String?
+  message   String   @db.Text
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

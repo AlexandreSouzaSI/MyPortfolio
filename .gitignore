@@ -1,0 +1,13 @@
+# OS / editor
+.DS_Store
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# .env da raiz (usado pelo docker-compose.yml em produção) — nunca commitar.
+# backend/.gitignore e frontend/.gitignore já cobrem node_modules/.env de
+# cada subprojeto; isso aqui é só reforço/pra qualquer coisa na raiz.
+/.env
+/node_modules/

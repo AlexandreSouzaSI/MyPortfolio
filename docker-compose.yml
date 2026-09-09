@@ -1,0 +1,55 @@
+# Stack completo (Postgres + backend + frontend) pra rodar numa VPS atrás
+# de Nginx — mesmo padrão usado no Controle Rota. Todas as portas ficam
+# amarradas em 127.0.0.1 (só acessíveis pelo próprio servidor); o Nginx é
+# quem expõe pra internet via subdomínio + HTTPS. Ver DEPLOY_HOSTINGER.md.
+#
+# Segredos (ADMIN_TOKEN, POSTGRES_PASSWORD) vêm de um ".env" na raiz do
+# projeto (não commitado) — copie ".env.example" pra ".env" e preencha.
+#
+# Uso local (só o banco, sem precisar buildar as imagens): "docker compose
+# up -d db".
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: portfolio_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: portfolio_db
+    ports:
+      # 5432/5433/5435/5436 já estão em uso por outros containers Postgres
+      # nesta máquina/servidor — 5434 é a porta livre pro portfólio.
+      - "127.0.0.1:5434:5432"
+    volumes:
+      - portfolio_db_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+    container_name: portfolio_backend
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "127.0.0.1:4100:4100"
+    environment:
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@db:5432/portfolio_db?schema=public
+      PORT: 4100
+      ADMIN_TOKEN: ${ADMIN_TOKEN:?defina ADMIN_TOKEN no .env}
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:?defina NEXT_PUBLIC_API_URL no .env}
+    container_name: portfolio_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "127.0.0.1:3010:3000"
+
+volumes:
+  portfolio_db_data:
