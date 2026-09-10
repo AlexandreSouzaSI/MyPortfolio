@@ -48,17 +48,37 @@ export const education: EducationItem[] = [
     },
     {
         institution: 'Centro Universitário Una',
-        degree: 'Bacharelado em Gestão de Sistemas de Informação',
+        degree: 'Bacharelado em Sistemas de Informação',
         period: 'Janeiro de 2015 — Dezembro de 2018',
     },
 ];
 
+// Todas as certificações são da Rocketseat (Faculdade de Tecnologia) —
+// títulos conferidos direto nos PDFs dos certificados.
 export const certifications: string[] = [
-    'Eduzz — Fullstack Developer #2',
-    'Node.js',
-    'MBA — Desenvolvimento Back-end',
-    'MBA — Soft Skills do profissional Full Stack',
-    'MBA — Desenvolvimento Web Frontend',
+    'Rocketseat — MBA: Desenvolvimento Back-end',
+    'Rocketseat — MBA: Desenvolvimento Web Front-end',
+    'Rocketseat — MBA: Desenvolvimento Mobile',
+    'Rocketseat — MBA: Fundamentos do Desenvolvimento Web',
+    'Rocketseat — MBA: Soft Skills do Profissional Full Stack',
+    'Rocketseat — Formação em Node.js',
+    'Rocketseat — Fundamentos do Node.js',
+    'Rocketseat — NestJS',
+    'Rocketseat — DDD no Node.js',
 ];
 
-export const topSkills: string[] = ['Prisma ORM', 'Next.js', 'C#'];
+export const topSkills: string[] = [
+    'Node.js',
+    'NestJS',
+    'Next.js',
+    'React',
+    'TypeScript',
+    'Java',
+    'C#',
+    'Prisma ORM',
+    'PostgreSQL',
+    'Docker',
+    'Blazor',
+    'Tailwind CSS',
+    'REST APIs',
+];

@@ -24,6 +24,10 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# CV é gerado automaticamente no build (scripts/generate-cv.ts) — não
+# commitar o PDF, sempre recriado a partir de lib/resume.ts.
+/public/cv/*.pdf
+
 # vercel
 .vercel
 

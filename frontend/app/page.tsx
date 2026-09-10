@@ -8,19 +8,17 @@ import { siteConfig } from '@/lib/site-config';
 import { fallbackProjects } from '@/lib/fallback-projects';
 import type { Project } from '@/lib/types';
 import { ProjectCard } from '../src/components/ProjectCard';
-import { ContactForm } from '../src/components/ContactForm';
 import { GithubIcon, LinkedinIcon, WhatsappIcon } from '../src/components/icons';
 import { ThemeToggle } from '../src/components/ThemeToggle';
 import { ExperienceSection } from '../src/components/ExperienceSection';
 import { EducationSection } from '../src/components/EducationSection';
 
-type TabKey = 'projetos' | 'experiencia' | 'formacao' | 'contato';
+type TabKey = 'projetos' | 'experiencia' | 'formacao';
 
 const tabs: { key: TabKey; label: string; icon: typeof Briefcase }[] = [
     { key: 'projetos', label: 'Projetos', icon: Briefcase },
     { key: 'experiencia', label: 'Experiência', icon: Building2 },
     { key: 'formacao', label: 'Formação', icon: GraduationCap },
-    { key: 'contato', label: 'Contato', icon: Mail },
 ];
 
 export default function Home() {
@@ -76,11 +74,20 @@ function HomeInner() {
 
                 <div className="flex flex-wrap gap-4 pt-2">
                     <a
+                        href={`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(siteConfig.whatsappMessage)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700"
+                    >
+                        <WhatsappIcon size={16} />
+                        WhatsApp
+                    </a>
+                    <a
                         href={`mailto:${siteConfig.email}`}
-                        className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
+                        className="inline-flex items-center gap-2 rounded-xl border border-zinc-300 dark:border-zinc-700 px-5 py-2.5 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800"
                     >
                         <Mail size={16} />
-                        Falar comigo
+                        Email
                     </a>
                     <a
                         href={siteConfig.github}
@@ -99,15 +106,6 @@ function HomeInner() {
                     >
                         <LinkedinIcon size={16} />
                         LinkedIn
-                    </a>
-                    <a
-                        href={`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(siteConfig.whatsappMessage)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-xl border border-zinc-300 dark:border-zinc-700 px-5 py-2.5 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800"
-                    >
-                        <WhatsappIcon size={16} />
-                        WhatsApp
                     </a>
                     <a
                         href={siteConfig.cvUrl}
@@ -184,27 +182,6 @@ function HomeInner() {
                     </div>
 
                     <EducationSection />
-                </section>
-            )}
-
-            {activeTab === 'contato' && (
-                <section className="space-y-6">
-                    <div>
-                        <h2 className="text-2xl font-bold">Contato</h2>
-                        <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                            Tem um problema parecido pra resolver? Me manda uma
-                            mensagem — ou fala direto por{' '}
-                            <a
-                                href={`mailto:${siteConfig.email}`}
-                                className="font-medium text-indigo-600 dark:text-indigo-400"
-                            >
-                                {siteConfig.email}
-                            </a>{' '}
-                            / {siteConfig.phone}.
-                        </p>
-                    </div>
-
-                    <ContactForm />
                 </section>
             )}
         </main>

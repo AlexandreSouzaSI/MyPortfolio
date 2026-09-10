@@ -10,7 +10,7 @@ Você vai precisar de 2 subdomínios apontando pro IP da VPS (registro DNS
 tipo A), por exemplo:
 
 - `portfolio.amsx.online` → frontend (site)
-- `portfolio-api.amsx.online` → backend (API)
+- `api.portfolio.amsx.online` → backend (API)
 
 Crie os dois registros DNS antes de continuar (pode levar alguns minutos
 pra propagar).
@@ -42,7 +42,7 @@ Preencha:
 - `ADMIN_TOKEN` — mesmo valor que você quer usar pra proteger a API (ex:
   `openssl rand -hex 32`).
 - `NEXT_PUBLIC_API_URL` — a URL pública da API, ex:
-  `https://portfolio-api.amsx.online` (sem barra no final).
+  `https://api.portfolio.amsx.online` (sem barra no final).
 
 Esse `NEXT_PUBLIC_API_URL` fica "gravado" dentro do build do frontend, então
 se você mudar depois precisa rodar `docker compose up -d --build frontend`
@@ -93,7 +93,7 @@ server {
 ```nginx
 server {
     listen 80;
-    server_name portfolio-api.amsx.online;
+    server_name api.portfolio.amsx.online;
 
     location / {
         proxy_pass http://127.0.0.1:4100;
@@ -115,13 +115,13 @@ systemctl reload nginx
 ```
 
 Teste sem HTTPS ainda: `http://portfolio.amsx.online` e
-`http://portfolio-api.amsx.online/projects` devem responder.
+`http://api.portfolio.amsx.online/projects` devem responder.
 
 ## 5. HTTPS com Certbot
 
 ```bash
 apt install certbot python3-certbot-nginx   # se ainda não tiver
-certbot --nginx -d portfolio.amsx.online -d portfolio-api.amsx.online
+certbot --nginx -d portfolio.amsx.online -d api.portfolio.amsx.online
 ```
 
 O Certbot edita os arquivos do Nginx automaticamente pra redirecionar
@@ -130,9 +130,8 @@ O Certbot edita os arquivos do Nginx automaticamente pra redirecionar
 ## 6. Checklist final
 
 - [ ] `https://portfolio.amsx.online` abre o site.
-- [ ] `https://portfolio-api.amsx.online/projects` retorna os projetos em JSON.
-- [ ] Formulário de contato envia sem erro.
-- [ ] Botões WhatsApp / Baixar CV / GitHub / LinkedIn abrem certo.
+- [ ] `https://api.portfolio.amsx.online/projects` retorna os projetos em JSON.
+- [ ] Botões Falar comigo / WhatsApp / Baixar CV / GitHub / LinkedIn abrem certo.
 - [ ] `docker compose logs -f` sem erros recorrentes.
 
 ## Atualizações futuras

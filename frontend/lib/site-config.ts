@@ -3,6 +3,9 @@
 // pelos seus links reais antes de publicar.
 export const siteConfig = {
     name: 'Alexandre Moura',
+    // Nome completo — usado só no cabeçalho do CV em PDF (documento formal),
+    // o site continua mostrando o nome curto acima.
+    fullName: 'Alexandre Moura de Souza',
     role: 'Desenvolvedor Full Stack · Node.js · NestJS · Next.js · Prisma · Docker',
     pitch:
         'Mais de 3 anos construindo sistemas web e automações pra empresas, do modelo de dados à interface — Node.js, NestJS, Next.js, Prisma, Docker e React. Sistemas que resolveram problemas reais de operação e que estão rodando em produção hoje, não são só protótipo.',

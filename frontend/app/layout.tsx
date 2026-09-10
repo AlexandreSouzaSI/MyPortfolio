@@ -17,10 +17,7 @@ const geistMono = Geist_Mono({
 const siteTitle = "Alexandre Moura — Desenvolvedor Full Stack";
 const siteDescription =
   "Portfólio de Alexandre Moura: sistemas construídos e em uso real, experiência, formação e projetos de um desenvolvedor Full Stack Node.js/NestJS/Next.js/Prisma.";
-// Troque pela URL real quando o domínio do portfólio estiver definido —
-// necessário pra imagem de preview (og:image) resolver certo em links
-// compartilhados (WhatsApp, LinkedIn, etc.).
-const siteUrl = "https://amsx.online";
+const siteUrl = "https://portfolio.amsx.online";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
